@@ -1,0 +1,80 @@
+<h3 class="text-center mb-3"> Andamento de pedidos </h3>
+<form action="/consulta" method="POST" class="mb-4">
+    <div class="row">
+
+        <div class="form-group col-md-2">
+            <label for="cnpj">CPF / CNPJ</label>
+            <input type="text" name="cnpj" class="form-control">
+        </div>
+
+        <div class="form-group col-md-1">
+            <label for="situacao">Situação</label>
+            <input type="text" name="situacao" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="situacao">
+                Situação
+            </label>
+            <input type="text" id="situacao" list="lista_empresa" onblur="onblurEmpresa()" onInput="onInputEmpresa()" class="form-control col-xl-8">
+            <datalist id="lista_empresa"></datalist>
+        </div>
+
+        <div class="form-group col-md-3">
+            <label for="dataInicial">Data inicial</label>
+            <input type="date" name="dataInicial" class="form-control">
+        </div>
+        <div class="form-group col-md-3">
+            <label for="dataFinal">Data final</label>
+            <input type="date" name="dataFinal" class="form-control">
+        </div>
+    </div>
+
+    <input type="submit" value="Pesquisar" class="btn btn-primary btn-block">
+</form>
+
+<h4>Pedidos</h4>
+<ul class="list-group">
+
+    <!--
+    {{#each pedidosPeriodo}}
+        <li class="list-group-item">{{this.NUM_PEDIDO}} {{this.PRZ_ENTREGA}} {{this.NUM_SEQUENCIA}} {{this.SIT_PEDIDO}} {{this.ETAPA}}</li>
+    {{/each}}
+    -->
+
+    <div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <td>Prazo de Entrega</td>
+                    <td>Pedido</td>
+                    <td>Sequência</td>
+                    <td>Qtd solicitada</td>
+                    <td>Qtd de lote</td>
+                    <td>Largura</td>
+                    <td>Comprimento</td>
+                    <td>Situação</td>
+                    <td>Etapa</td>
+                </tr>
+            </thead>
+            <tbody>
+                <div>
+                    {{#each pedidosPeriodo}}
+                    <tr>
+                        <td>{{this.PRZ_ENTREGA_DATA}} {{this.PRZ_ENTREGA_HORA}}</td>
+                        <td>{{this.NUM_PEDIDO}}</td>
+                        <td>{{this.NUM_SEQUENCIA}}</td>
+                        <td>{{this.QTD_SOLICITADA}}</td>
+                        <td>{{this.QTD_DE_LOTE}}</td>
+                        <td>{{this.LARGURA}}</td>
+                        <td>{{this.COMPRIMENTO}}</td>
+                        <td>{{this.SIT_PEDIDO}}</td>
+                        <td>{{this.ETAPA}}</td>
+                    </tr>
+                    {{/each}}
+                </div>
+            </tbody>
+        </table>
+    </div>
+
+</ul>

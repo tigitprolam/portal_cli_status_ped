@@ -1,0 +1,42 @@
+Problema:
+"{ mensagem: Error: ORA-01858: a non-numeric character was found where a numeric was expected }"
+
+Causa
+
+Eu tinha montado a data no controller da seguinte forma:
+
+	if(req.params.dat_hor_ini) {
+		const data_ini = req.params.dat_hor_ini.substr(0,4) + '-' + req.params.dat_hor_ini.substr(4,2) + '-' + req.params.dat_hor_ini.substr(6,2)
+		const hora_ini = req.params.dat_hor_ini.substr(8,2) + ':' + req.params.dat_hor_ini.substr(10,2) + ':' + req.params.dat_hor_ini.substr(12,2)
+		contexto.dat_hor_ini = new Date (  data_ini + 'T' + hora_ini + 'Z' )
+	}
+
+    portanto, é nos parametros o consumidor da API tem que digitar a data ao contrario, junto com a hora, esperando entao: YYYYMMDDHHmmss
+
+    Em seguida, no model eu estava tentando, INDEVIDAMENTE converter para DATE (NAO É NECESSARIO)
+
+            sqlWhereCompl += `\nAND prz_entrega BETWEEN To_Date( :dat_hor_ini , 'DD/MM/RRRR HH24:MI:SS')
+                                                    AND To_Date( :dat_hor_fim , 'DD/MM/RRRR HH24:MI:SS')`
+
+Solução
+            sqlWhereCompl += `\nAND prz_entrega BETWEEN :dat_hor_ini AND :dat_hor_fim `
+
+---
+
+Problema
+Não funciona última versão Bootstrap que peguei no site getbootstrap.com
+É possível ver na console do navegador Chrome o erro:
+Refused to apply style from 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.3/css/bootstrap.min.css' because its MIME type ('application/xml') is not a supported stylesheet MIME type, and strict MIME checking is enabled.
+
+Causa
+Encontrei em alguns sites que a causa deste erro geralmente é URL incorreta ou ainda estamos definindo incorretamente onde encontrar o CSS, devido
+por exemplo estarmos definindo um local estático "public" para ter o conteúdo estático para o express, porém não tem barra no final; exemplo: "public/"
+Apesar da maioria dos links apontar para isso como causa, eu estava tentando usar um CDN, então não faz sentido eu ficar corrigindo
+
+Solução
+Fui procurar para fazer download do Bootstrap e acabei encontrando um link para um CDN com uma versão um pouco mais antiga do CDN
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+---
+
