@@ -16,19 +16,7 @@ async function get(req, res, next) {
 	const contexto = {}
 
 	contexto.cod_cliente = req.params.cod_cliente
-	contexto.situacao = req.params.situacao
-
-	if(req.params.dat_hor_ini) {
-		const data_ini = req.params.dat_hor_ini.substr(0,4) + '-' + req.params.dat_hor_ini.substr(4,2) + '-' + req.params.dat_hor_ini.substr(6,2)
-		const hora_ini = req.params.dat_hor_ini.substr(8,2) + ':' + req.params.dat_hor_ini.substr(10,2) + ':' + req.params.dat_hor_ini.substr(12,2)
-		contexto.dat_hor_ini = new Date (  data_ini + 'T' + hora_ini + 'Z' )
-	}
-	
-	if(req.params.dat_hor_fim) {
-		const data_fim = req.params.dat_hor_fim.substr(0,4) + '-' + req.params.dat_hor_fim.substr(4,2) + '-' + req.params.dat_hor_fim.substr(6,2)
-		const hora_fim = req.params.dat_hor_fim.substr(8,2) + ':' + req.params.dat_hor_fim.substr(10,2) + ':' + req.params.dat_hor_fim.substr(12,2)
-		contexto.dat_hor_fim = new Date (  data_fim + 'T' + hora_fim + 'Z' )
-	}
+	//contexto.situacao = req.params.situacao
 
 	// ?limite=
 
