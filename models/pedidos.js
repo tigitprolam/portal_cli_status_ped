@@ -18,6 +18,7 @@ SELECT
 
          pi.cod_empresa
        , pi.num_pedido
+       , pi.dat_emis_repres
        , pi.num_sequencia
        , pi.cod_item
        , i.den_item_reduz
